@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat ~/.claude.json 2>/dev/null | head -c 3000; echo; echo \"---\"; cat \"$HOME/.claude.json\" 2>/dev/null | grep -i notion -A 5 -B 2)",
+      "Read(//c/Users/gauti/**)",
+      "Bash(python3 -c ' *)",
+      "mcp__supabase__execute_sql",
+      "mcp__supabase__list_tables",
+      "Bash(npx create-next-app@latest . --typescript --eslint --tailwind --app --no-src-dir --import-alias \"@/*\" --use-npm --turbopack)",
+      "Bash(curl -sS -D - -o /dev/null -L --max-redirs 5 \"http://localhost:3000/\")",
+      "Bash(curl -sS -D - -o /dev/null \"http://localhost:3000/login\")",
+      "Bash(tasklist /FI \"PID eq 22540\")",
+      "Bash(powershell -Command \"Get-Process -Id 22540 | Select-Object Id,ProcessName,StartTime,Path\")",
+      "Bash(taskkill /PID 22540 /F)",
+      "Bash(powershell -Command \"Stop-Process -Id 22540 -Force\")",
+      "Bash(npm run *)",
+      "Bash(curl -sS -D - -o /dev/null -L --max-redirs 3 \"http://localhost:3000/\")"
+    ]
+  }
+}
