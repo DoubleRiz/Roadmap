@@ -23,3 +23,7 @@ RLS activé sur toutes les tables. Vérifier avec `get_advisors` avant toute mod
 
 ## features_history
 - RLS activé, aucune policy définie -> aucun accès direct pour le rôle `authenticated`. Table alimentée uniquement par le trigger `trigger_feature_audit`.
+
+## sprints
+- **SELECT** : tous les utilisateurs authentifiés
+- **INSERT / UPDATE / DELETE** : réservés aux profils avec `role = 'admin'`

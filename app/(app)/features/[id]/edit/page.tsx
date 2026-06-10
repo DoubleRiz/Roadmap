@@ -35,10 +35,20 @@ export default async function EditFeaturePage({
     .select("id, firstname, lastname, email, photo")
     .order("firstname")
 
+  const { data: sprints } = await supabase
+    .from("sprints")
+    .select("*")
+    .order("start_date", { ascending: true })
+
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-semibold">Éditer la feature</h1>
-      <FeatureForm mode="edit" feature={feature} profiles={profiles ?? []} />
+      <FeatureForm
+        mode="edit"
+        feature={feature}
+        profiles={profiles ?? []}
+        sprints={sprints ?? []}
+      />
     </div>
   )
 }

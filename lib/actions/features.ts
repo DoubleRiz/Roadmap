@@ -17,6 +17,7 @@ function toFeatureRow(values: FeatureFormValues) {
     due_date: values.due_date || null,
     difficulty: values.difficulty ? Number(values.difficulty) : null,
     user_id: values.user_id === "unassigned" ? null : values.user_id,
+    sprint_id: values.sprint_id === "none" ? null : Number(values.sprint_id),
   }
 }
 

@@ -9,7 +9,7 @@ import { CalendarIcon } from "lucide-react"
 
 import { createFeatureAction, updateFeatureAction } from "@/lib/actions/features"
 import { featureSchema, type FeatureFormValues } from "@/lib/validations/feature"
-import type { Feature, ProfileSummary } from "@/lib/types"
+import type { Feature, ProfileSummary, Sprint } from "@/lib/types"
 import { getProfileDisplayName } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
@@ -43,10 +43,12 @@ export function FeatureForm({
   mode,
   feature,
   profiles,
+  sprints,
 }: {
   mode: "create" | "edit"
   feature?: Feature
   profiles: ProfileSummary[]
+  sprints: Sprint[]
 }) {
   const [serverError, setServerError] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
@@ -64,6 +66,7 @@ export function FeatureForm({
           ? String(Math.min(feature.difficulty, MAX_DIFFICULTY))
           : "",
       user_id: feature?.user_id ?? "unassigned",
+      sprint_id: feature?.sprint_id != null ? String(feature.sprint_id) : "none",
     },
   })
 
@@ -235,6 +238,40 @@ export function FeatureForm({
                   {profiles.map((profile) => (
                     <SelectItem key={profile.id} value={profile.id}>
                       {getProfileDisplayName(profiles, profile.id)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="sprint_id"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Sprint</FormLabel>
+              <Select value={field.value} onValueChange={field.onChange}>
+                <FormControl>
+                  <SelectTrigger className="w-full">
+                    <SelectValue>
+                      {(value: string) => {
+                        if (value === "none") return "Aucun sprint"
+                        return (
+                          sprints.find((sprint) => String(sprint.id) === value)?.name ??
+                          "Aucun sprint"
+                        )
+                      }}
+                    </SelectValue>
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="none">Aucun sprint</SelectItem>
+                  {sprints.map((sprint) => (
+                    <SelectItem key={sprint.id} value={String(sprint.id)}>
+                      {sprint.name}
                     </SelectItem>
                   ))}
                 </SelectContent>

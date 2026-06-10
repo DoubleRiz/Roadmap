@@ -19,7 +19,7 @@ export default async function FeatureDetailPage({
 
   const { data: feature } = await supabase
     .from("features")
-    .select("*, profiles(id, firstname, lastname, email, photo)")
+    .select("*, profiles(id, firstname, lastname, email, photo), sprints(id, name, status)")
     .eq("id", featureId)
     .single()
 

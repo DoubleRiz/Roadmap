@@ -19,6 +19,12 @@ export function Header({ profile }: { profile: Profile }) {
             Features
           </Link>
           <Link
+            href="/sprints"
+            className="text-sm text-muted-foreground hover:text-foreground"
+          >
+            Sprints
+          </Link>
+          <Link
             href="/notifications"
             className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
           >

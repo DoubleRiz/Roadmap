@@ -22,7 +22,16 @@
       "mcp__supabase__apply_migration",
       "Bash(npx eslint *)",
       "Bash(tasklist)",
-      "Bash(findstr \"next-server\\\\|node.exe\")"
+      "Bash(findstr \"next-server\\\\|node.exe\")",
+      "mcp__supabase__get_advisors",
+      "mcp__supabase__generate_typescript_types",
+      "Bash(mkdir -p \"app/\\(app\\)/sprints/new\" \"app/\\(app\\)/sprints/[id]/edit\")",
+      "Bash(npx next *)",
+      "Bash(netstat -ano)",
+      "Bash(taskkill //F //PID 16896)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\gauti\\Documents\\TECH projects\\Roadmap\\app\\(app)\\sprints\\[id]"
     ]
   }
 }

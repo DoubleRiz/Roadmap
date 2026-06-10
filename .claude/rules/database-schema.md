@@ -19,7 +19,18 @@ Schéma réel vérifié via MCP Supabase (`list_tables`). Toujours revérifier a
 - `due_date` : date (nullable) -> échéance
 - `difficulty` : int4 (nullable) -> estimation d'effort
 - `user_id` : uuid (FK -> `profiles.id`, nullable) -> utilisateur assigné
+- `sprint_id` : int8 (FK -> `sprints.id`, nullable, ON DELETE SET NULL) -> sprint associé
 - `created_at`, `updated_at` : timestamptz (auto)
+
+## sprints
+- `id` : int8 (PK, identity)
+- `name` : text (NOT NULL)
+- `description` : text (nullable)
+- `start_date`, `end_date` : date (NOT NULL, CHECK `end_date >= start_date`)
+- `status` : text, CHECK IN (`planned`, `active`, `completed`), default `planned`
+- `created_at`, `updated_at` : timestamptz (auto)
+
+Une feature appartient à au plus un sprint (relation 1 sprint -> N features via `features.sprint_id`).
 
 ## comments
 - `id` : int8 (PK, identity)

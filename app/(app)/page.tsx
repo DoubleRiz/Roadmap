@@ -27,7 +27,7 @@ export default async function HomePage({
   // On construit la requête en ajoutant les filtres demandés un par un.
   let query = supabase
     .from("features")
-    .select("*, profiles(id, firstname, lastname, email, photo)")
+    .select("*, profiles(id, firstname, lastname, email, photo), sprints(id, name, status)")
     .order("created_at", { ascending: false })
 
   if (params.status) {

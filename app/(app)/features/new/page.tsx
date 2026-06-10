@@ -18,10 +18,15 @@ export default async function NewFeaturePage() {
     .select("id, firstname, lastname, email, photo")
     .order("firstname")
 
+  const { data: sprints } = await supabase
+    .from("sprints")
+    .select("*")
+    .order("start_date", { ascending: true })
+
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-semibold">Nouvelle feature</h1>
-      <FeatureForm mode="create" profiles={profiles ?? []} />
+      <FeatureForm mode="create" profiles={profiles ?? []} sprints={sprints ?? []} />
     </div>
   )
 }

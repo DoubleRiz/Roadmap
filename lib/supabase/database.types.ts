@@ -64,6 +64,7 @@ export type Database = {
           due_date: string | null
           id: number
           priority: string
+          sprint_id: number | null
           status: string
           title: string
           updated_at: string | null
@@ -76,6 +77,7 @@ export type Database = {
           due_date?: string | null
           id?: number
           priority?: string
+          sprint_id?: number | null
           status?: string
           title: string
           updated_at?: string | null
@@ -88,12 +90,20 @@ export type Database = {
           due_date?: string | null
           id?: number
           priority?: string
+          sprint_id?: number | null
           status?: string
           title?: string
           updated_at?: string | null
           user_id?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "features_sprint_id_fkey"
+            columns: ["sprint_id"]
+            isOneToOne: false
+            referencedRelation: "sprints"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "features_user_id_fkey"
             columns: ["user_id"]
@@ -225,6 +235,39 @@ export type Database = {
           lastname?: string | null
           photo?: string | null
           role?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      sprints: {
+        Row: {
+          created_at: string
+          description: string | null
+          end_date: string
+          id: number
+          name: string
+          start_date: string
+          status: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          end_date: string
+          id?: number
+          name: string
+          start_date: string
+          status?: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          end_date?: string
+          id?: number
+          name?: string
+          start_date?: string
+          status?: string
           updated_at?: string | null
         }
         Relationships: []

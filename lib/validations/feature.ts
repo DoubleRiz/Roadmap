@@ -24,6 +24,8 @@ export const featureSchema = z.object({
     ),
   // "unassigned" ou l'id (uuid) du profil assigné.
   user_id: z.string(),
+  // "none" ou l'id (texte) du sprint associé.
+  sprint_id: z.string(),
 })
 
 export type FeatureFormValues = z.infer<typeof featureSchema>

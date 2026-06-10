@@ -14,7 +14,7 @@
 - Fonction : `process_feature_audit()`
 - Logue les changements (`old_value` / `new_value` en jsonb) dans `features_history`.
 
-## set_updated_at (BEFORE UPDATE on profiles, features, comments)
+## set_updated_at (BEFORE UPDATE on profiles, features, comments, sprints)
 - Fonction : `update_updated_at()`
 - Met à jour automatiquement `updated_at`. Ne jamais l'envoyer manuellement depuis le client.
 

@@ -2,6 +2,7 @@ import Link from "next/link"
 import { CalendarIcon, PenIcon } from "lucide-react"
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { DeleteFeatureDialog } from "@/components/features/delete-feature-dialog"
 import { StatusBadge } from "@/components/features/status-badge"
@@ -64,6 +65,11 @@ export function FeatureDetailHeader({
       <div className="flex flex-wrap gap-2">
         <StatusBadge status={feature.status} />
         <PriorityBadge priority={feature.priority} />
+        {feature.sprints && (
+          <Link href={`/sprints/${feature.sprints.id}`}>
+            <Badge variant="outline">{feature.sprints.name}</Badge>
+          </Link>
+        )}
       </div>
 
       {feature.description && (

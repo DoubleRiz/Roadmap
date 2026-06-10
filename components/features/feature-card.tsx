@@ -2,6 +2,7 @@ import Link from "next/link"
 import { CalendarIcon } from "lucide-react"
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { StatusBadge } from "@/components/features/status-badge"
 import { PriorityBadge } from "@/components/features/priority-badge"
@@ -41,6 +42,7 @@ export function FeatureCard({ feature }: { feature: FeatureWithAssignee }) {
           <div className="flex flex-wrap gap-2 pt-1">
             <StatusBadge status={feature.status} />
             <PriorityBadge priority={feature.priority} />
+            {feature.sprints && <Badge variant="outline">{feature.sprints.name}</Badge>}
           </div>
         </CardHeader>
         <CardContent className="flex items-center justify-between gap-4 text-sm text-muted-foreground">
