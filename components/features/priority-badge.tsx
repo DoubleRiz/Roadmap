@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils"
 import type { FeaturePriority } from "@/lib/types"
 
 // Libellés et couleurs associés à chaque priorité de feature.
-const PRIORITY_LABELS: Record<FeaturePriority, string> = {
+export const PRIORITY_LABELS: Record<FeaturePriority, string> = {
   low: "Basse",
   medium: "Moyenne",
   high: "Haute",

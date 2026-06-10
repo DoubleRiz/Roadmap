@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils"
 import type { FeatureStatus } from "@/lib/types"
 
 // Libellés et couleurs associés à chaque statut de feature.
-const STATUS_LABELS: Record<FeatureStatus, string> = {
+export const STATUS_LABELS: Record<FeatureStatus, string> = {
   to_do: "À faire",
   in_progress: "En cours",
   done: "Terminé",

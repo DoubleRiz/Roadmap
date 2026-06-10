@@ -19,6 +19,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { STATUS_LABELS } from "@/components/features/status-badge"
+import { PRIORITY_LABELS } from "@/components/features/priority-badge"
+import { getProfileDisplayName } from "@/lib/utils"
 import type { ProfileSummary } from "@/lib/types"
 
 export function FeatureFilters({ profiles }: { profiles: ProfileSummary[] }) {
@@ -47,7 +50,11 @@ export function FeatureFilters({ profiles }: { profiles: ProfileSummary[] }) {
     <div className="flex flex-wrap items-center gap-2">
       <Select value={status} onValueChange={(value) => setFilter("status", value)}>
         <SelectTrigger>
-          <SelectValue placeholder="Statut" />
+          <SelectValue>
+            {(value: keyof typeof STATUS_LABELS | "all") =>
+              value === "all" ? "Tous les statuts" : STATUS_LABELS[value]
+            }
+          </SelectValue>
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all">Tous les statuts</SelectItem>
@@ -59,7 +66,11 @@ export function FeatureFilters({ profiles }: { profiles: ProfileSummary[] }) {
 
       <Select value={priority} onValueChange={(value) => setFilter("priority", value)}>
         <SelectTrigger>
-          <SelectValue placeholder="Priorité" />
+          <SelectValue>
+            {(value: keyof typeof PRIORITY_LABELS | "all") =>
+              value === "all" ? "Toutes les priorités" : PRIORITY_LABELS[value]
+            }
+          </SelectValue>
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all">Toutes les priorités</SelectItem>
@@ -71,15 +82,20 @@ export function FeatureFilters({ profiles }: { profiles: ProfileSummary[] }) {
 
       <Select value={assignee} onValueChange={(value) => setFilter("assignee", value)}>
         <SelectTrigger>
-          <SelectValue placeholder="Assigné" />
+          <SelectValue>
+            {(value: string) => {
+              if (value === "all") return "Tous les assignés"
+              if (value === "unassigned") return "Non assigné"
+              return getProfileDisplayName(profiles, value)
+            }}
+          </SelectValue>
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all">Tous les assignés</SelectItem>
           <SelectItem value="unassigned">Non assigné</SelectItem>
           {profiles.map((profile) => (
             <SelectItem key={profile.id} value={profile.id}>
-              {[profile.firstname, profile.lastname].filter(Boolean).join(" ") ||
-                profile.email}
+              {getProfileDisplayName(profiles, profile.id)}
             </SelectItem>
           ))}
         </SelectContent>

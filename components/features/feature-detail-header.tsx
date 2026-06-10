@@ -1,11 +1,12 @@
 import Link from "next/link"
-import { CalendarIcon, GaugeIcon, PenIcon } from "lucide-react"
+import { CalendarIcon, PenIcon } from "lucide-react"
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { DeleteFeatureDialog } from "@/components/features/delete-feature-dialog"
 import { StatusBadge } from "@/components/features/status-badge"
 import { PriorityBadge } from "@/components/features/priority-badge"
+import { DifficultyStars } from "@/components/features/difficulty-rating"
 import type { FeatureWithAssignee } from "@/lib/types"
 
 // Formate une date ISO (YYYY-MM-DD) en format lisible "12 juin 2026".
@@ -86,8 +87,8 @@ export function FeatureDetailHeader({
         </div>
         {feature.difficulty !== null && (
           <div className="flex items-center gap-1.5">
-            <GaugeIcon className="size-4" />
-            <span>Difficulté : {feature.difficulty}</span>
+            <span>Difficulté :</span>
+            <DifficultyStars value={feature.difficulty} />
           </div>
         )}
         <span>Créée le {formatDate(feature.created_at)}</span>

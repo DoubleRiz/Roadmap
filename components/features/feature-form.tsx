@@ -10,9 +10,13 @@ import { CalendarIcon } from "lucide-react"
 import { createFeatureAction, updateFeatureAction } from "@/lib/actions/features"
 import { featureSchema, type FeatureFormValues } from "@/lib/validations/feature"
 import type { Feature, ProfileSummary } from "@/lib/types"
+import { getProfileDisplayName } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import { Input } from "@/components/ui/input"
+import { DifficultyRatingInput, MAX_DIFFICULTY } from "@/components/features/difficulty-rating"
+import { STATUS_LABELS } from "@/components/features/status-badge"
+import { PRIORITY_LABELS } from "@/components/features/priority-badge"
 import {
   Popover,
   PopoverContent,
@@ -55,7 +59,10 @@ export function FeatureForm({
       status: (feature?.status as FeatureFormValues["status"]) ?? "to_do",
       priority: (feature?.priority as FeatureFormValues["priority"]) ?? "medium",
       due_date: feature?.due_date ?? "",
-      difficulty: feature?.difficulty != null ? String(feature.difficulty) : "",
+      difficulty:
+        feature?.difficulty != null
+          ? String(Math.min(feature.difficulty, MAX_DIFFICULTY))
+          : "",
       user_id: feature?.user_id ?? "unassigned",
     },
   })
@@ -115,7 +122,9 @@ export function FeatureForm({
                 <Select value={field.value} onValueChange={field.onChange}>
                   <FormControl>
                     <SelectTrigger className="w-full">
-                      <SelectValue />
+                      <SelectValue>
+                        {(value: keyof typeof STATUS_LABELS) => STATUS_LABELS[value]}
+                      </SelectValue>
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -138,7 +147,9 @@ export function FeatureForm({
                 <Select value={field.value} onValueChange={field.onChange}>
                   <FormControl>
                     <SelectTrigger className="w-full">
-                      <SelectValue />
+                      <SelectValue>
+                        {(value: keyof typeof PRIORITY_LABELS) => PRIORITY_LABELS[value]}
+                      </SelectValue>
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -193,7 +204,7 @@ export function FeatureForm({
               <FormItem>
                 <FormLabel>Difficulté</FormLabel>
                 <FormControl>
-                  <Input type="number" min={1} step={1} {...field} />
+                  <DifficultyRatingInput value={field.value} onChange={field.onChange} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -210,15 +221,20 @@ export function FeatureForm({
               <Select value={field.value} onValueChange={field.onChange}>
                 <FormControl>
                   <SelectTrigger className="w-full">
-                    <SelectValue />
+                    <SelectValue>
+                      {(value: string) =>
+                        value === "unassigned"
+                          ? "Non assigné"
+                          : getProfileDisplayName(profiles, value)
+                      }
+                    </SelectValue>
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
                   <SelectItem value="unassigned">Non assigné</SelectItem>
                   {profiles.map((profile) => (
                     <SelectItem key={profile.id} value={profile.id}>
-                      {[profile.firstname, profile.lastname].filter(Boolean).join(" ") ||
-                        profile.email}
+                      {getProfileDisplayName(profiles, profile.id)}
                     </SelectItem>
                   ))}
                 </SelectContent>

@@ -15,12 +15,12 @@ export const featureSchema = z.object({
   priority: z.enum(["low", "medium", "high"]),
   // "" si aucune échéance, sinon une date au format YYYY-MM-DD.
   due_date: z.string(),
-  // "" si aucune difficulté, sinon un nombre entier positif sous forme de texte.
+  // "" si aucune difficulté, sinon une note de 1 à 5 (étoiles) sous forme de texte.
   difficulty: z
     .string()
     .refine(
-      (value) => value === "" || (/^\d+$/.test(value) && Number(value) > 0),
-      "La difficulté doit être un nombre entier positif"
+      (value) => value === "" || /^[1-5]$/.test(value),
+      "La difficulté doit être comprise entre 1 et 5"
     ),
   // "unassigned" ou l'id (uuid) du profil assigné.
   user_id: z.string(),
