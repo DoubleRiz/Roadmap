@@ -4,7 +4,8 @@
 "use client"
 
 import { useTransition } from "react"
-import { LogOut } from "lucide-react"
+import Link from "next/link"
+import { LogOut, User } from "lucide-react"
 import { logoutAction } from "@/lib/actions/auth"
 import type { Profile } from "@/lib/types"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
@@ -12,6 +13,7 @@ import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -45,19 +47,27 @@ export function UserMenu({ profile }: { profile: Profile }) {
         }
       />
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel className="flex flex-col">
-          <span className="font-medium">{displayName}</span>
-          <span className="text-muted-foreground text-xs font-normal">
-            {profile.email}
-          </span>
-        </DropdownMenuLabel>
+        <DropdownMenuGroup>
+          <DropdownMenuLabel className="flex flex-col">
+            <span className="font-medium">{displayName}</span>
+            <span className="text-muted-foreground text-xs font-normal">
+              {profile.email}
+            </span>
+          </DropdownMenuLabel>
+        </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem
-          onClick={() => startTransition(() => logoutAction())}
-        >
-          <LogOut className="mr-2 size-4" />
-          Se déconnecter
-        </DropdownMenuItem>
+        <DropdownMenuGroup>
+          <DropdownMenuItem render={<Link href="/profile" />}>
+            <User className="mr-2 size-4" />
+            Profil
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => startTransition(() => logoutAction())}
+          >
+            <LogOut className="mr-2 size-4" />
+            Se déconnecter
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   )

@@ -47,6 +47,7 @@ export function FeatureDetailHeader({
           <div className="flex shrink-0 gap-2">
             <Button
               variant="outline"
+              nativeButton={false}
               render={
                 <Link href={`/features/${feature.id}/edit`}>
                   <PenIcon className="size-4" />

@@ -58,7 +58,10 @@ export default async function HomePage({
       <div className="flex items-center justify-between gap-4">
         <h1 className="text-2xl font-semibold">Features</h1>
         {profile?.role === "admin" && (
-          <Button render={<Link href="/features/new">Nouvelle feature</Link>} />
+          <Button
+            nativeButton={false}
+            render={<Link href="/features/new">Nouvelle feature</Link>}
+          />
         )}
       </div>
 
